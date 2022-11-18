@@ -2,6 +2,7 @@
 using DotnetCoreApiDemo.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace DotnetCoreApiDemo.Controllers
         [Route("GetDepartment")]
         public async Task<IActionResult> Get()
         {
+            Log.Information($"GET DepartmentList called at {DateTime.Now}");
+
             var response = await _department.GetDepartment();
             if(response.Count() == 0)
             {
@@ -33,6 +36,8 @@ namespace DotnetCoreApiDemo.Controllers
         [Route("GetDepartmentByID/{Id}")]
         public async Task<IActionResult> GetDeptById(int Id)
         {
+            Log.Information($"GET DepartmentBYID called at {DateTime.Now}");
+
             var response = await _department.GetDepartmentByID(Id);
             if (response == null)
             {
@@ -44,6 +49,8 @@ namespace DotnetCoreApiDemo.Controllers
         [Route("AddDepartment")]
         public async Task<IActionResult> Post(Department dep)
         {
+            Log.Information($"post Department called at {DateTime.Now}");
+
             var result = await _department.InsertDepartment(dep);
             if (result.DepartmentId == 0)
             {
@@ -56,6 +63,8 @@ namespace DotnetCoreApiDemo.Controllers
         [Route("UpdateDepartment/{id}")]
         public async Task<IActionResult> Put(int id, Department dep)
             {
+            Log.Information($"update Department called at {DateTime.Now}");
+
             if (id != dep.DepartmentId)
                 return BadRequest("Employee ID mismatch");
 
@@ -71,6 +80,7 @@ namespace DotnetCoreApiDemo.Controllers
         [Route("DeleteDepartment")]
         public JsonResult Delete(int id)
         {
+            Log.Information($"delete Departmentt called at {DateTime.Now}");
             _department.DeleteDepartment(id);
             return new JsonResult("Deleted Successfully");
         }

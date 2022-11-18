@@ -66,6 +66,7 @@ namespace DOTNETCORE3API
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
+            app.UseMiddleware(typeof(SerilogMiddleWare));
             app.UseSwagger();
             app.UseSwaggerUI(c => {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "WEB API");
