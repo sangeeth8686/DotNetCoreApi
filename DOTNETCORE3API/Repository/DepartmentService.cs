@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace DotnetCoreApiDemo.Repository
 {
-    public class DepartmentRepo : IDepartmentRepo
+    public class DepartmentService : IDepartmentService
     {
         private readonly APIDbContext _appDBContext;
-        public DepartmentRepo(APIDbContext context)
+        public DepartmentService(APIDbContext context)
         {
             _appDBContext = context ??
                 throw new ArgumentNullException(nameof(context));
         }
         public async Task<IEnumerable<Department>> GetDepartment()
         {
-            return await _appDBContext.Departments.ToListAsync();
+            return await _appDBContext.Departments.ToArrayAsync();
+
         }
         public async Task<Department> GetDepartmentByID(int ID)
         {

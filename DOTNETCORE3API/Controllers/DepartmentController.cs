@@ -3,6 +3,7 @@ using DotnetCoreApiDemo.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DotnetCoreApiDemo.Controllers
@@ -11,8 +12,8 @@ namespace DotnetCoreApiDemo.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly IDepartmentRepo _department;
-        public DepartmentController(IDepartmentRepo department)
+        private readonly IDepartmentService _department;
+        public DepartmentController(IDepartmentService department)
         {
             _department = department ??
                 throw new ArgumentNullException(nameof(department));
@@ -21,13 +22,23 @@ namespace DotnetCoreApiDemo.Controllers
         [Route("GetDepartment")]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _department.GetDepartment());
+            var response = await _department.GetDepartment();
+            if(response.Count() == 0)
+            {
+                return NoContent();
+            }
+            return Ok(response);
         }
         [HttpGet]
         [Route("GetDepartmentByID/{Id}")]
         public async Task<IActionResult> GetDeptById(int Id)
         {
-            return Ok(await _department.GetDepartmentByID(Id));
+            var response = await _department.GetDepartmentByID(Id);
+            if (response == null)
+            {
+                return NotFound();
+            }
+            return Ok(response);
         }
         [HttpPost]
         [Route("AddDepartment")]

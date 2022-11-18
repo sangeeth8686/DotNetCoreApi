@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DotnetCoreApiDemo.Repository
 {
-    public interface IDepartmentRepo
+    public interface IDepartmentService
     {
         Task<IEnumerable<Department>> GetDepartment();
         Task<Department> GetDepartmentByID(int ID);

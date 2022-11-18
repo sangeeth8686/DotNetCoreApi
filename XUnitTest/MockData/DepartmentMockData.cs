@@ -1,12 +1,27 @@
 ﻿using DotnetCoreApiDemo.Models;
+using DotnetCoreApiDemo.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace XUnitTest
 {
-    public class DepartmentMockData
+    public static class DepartmentMockData
     {
+
+        public static void Seed(this APIDbContext dbContext)
+        {
+            dbContext.Departments.AddAsync(new Department
+            {
+                DepartmentId = 1,
+                DepartmentName = ".NET",
+            });
+            dbContext.Departments.AddAsync(new Department
+            {
+                DepartmentId = 2,
+                DepartmentName = "IT",
+            });
+        }
         public static List<Employee> getAllEmployees()
         {
             return new List<Employee>
@@ -30,7 +45,7 @@ namespace XUnitTest
 
         public static List<Department> GetDepartments()
         {
-            return new List<Department>
+            List<Department> departments =  new List<Department>
             {
                 new Department
                 {
@@ -43,6 +58,7 @@ namespace XUnitTest
                     DepartmentName="IT",
                 }
             };
+            return departments;
         }
         public static List<Department> GetNoDepartments()
         {

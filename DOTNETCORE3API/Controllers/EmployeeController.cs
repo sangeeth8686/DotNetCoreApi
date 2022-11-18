@@ -12,8 +12,8 @@ namespace DotnetCoreApiDemo.Controllers
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeRepo _employee;
-        private readonly IDepartmentRepo _department;
-        public EmployeeController(IEmployeeRepo employee, IDepartmentRepo department)
+        private readonly IDepartmentService _department;
+        public EmployeeController(IEmployeeRepo employee, IDepartmentService department)
         {
             _employee = employee ??
                 throw new ArgumentNullException(nameof(employee));
