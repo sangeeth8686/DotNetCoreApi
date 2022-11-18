@@ -1,6 +1,3 @@
 # DotNetCoreApi
  
-With DB
-With Repository Pattern
-With Xunit Testing
-With Serilog logging
+ # DB Repository Pattern Xunit Testing Serilog logging
